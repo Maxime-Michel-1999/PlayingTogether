@@ -4,7 +4,8 @@
       <router-link to="/">Home</router-link> |
       <router-link to="/join">Join</router-link> |
       <router-link to="/Host">Host</router-link> |
-      <router-link to="/Game">Game</router-link>
+      <router-link to="/Game">Game</router-link> |
+      <router-link to="/Account">Account</router-link>
     </div>
     <router-view/>
   </div>
