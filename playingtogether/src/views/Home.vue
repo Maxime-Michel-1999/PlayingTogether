@@ -11,14 +11,12 @@
 <script>
 
 import Map from '../components/Map';
-import Signin from '../components/Signin'
 
 
 export default {
   name: 'Home',
   components: {
     Map,
-    Signin
   }
 }
 
