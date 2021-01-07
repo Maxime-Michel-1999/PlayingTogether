@@ -1,13 +1,10 @@
 <template>
     <div>
+        <button @click="drawMarker()">Draw Marker</button>
         <div style="max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between">
             <div>
                 <h1>Your coordinates:</h1>
                 <p>{{ myCoordinates.lat }} Latitude, {{ myCoordinates.lng }} Longitude</p>
-            </div>
-            <div>
-                <h1>Map coordinates:</h1>
-                <p>{{ mapCoordinates.lat }} Latitude, {{ mapCoordinates.lng }} Longitude</p>
             </div>
         </div>
         <GmapMap
@@ -16,10 +13,27 @@
             style="width:640px; height:360px; margin: 32px auto;"
             ref="mapRef"
             @dragend="handleDrag"
-        ></GmapMap>
+        >
+        <GmapMarker
+            :key="index"
+            v-for="(m,index) in markers"
+            :position="m.position"
+            :clickable="true"
+            :draggable="true"
+            @click="center = m.position"
+            />
+        </GmapMap>
+       
+        
     </div>
 </template>
+
+
+
+
 <script>
+    //const test = {lat:43.6990670,lng:7.25823092};
+
     export default {
         data() {
             return {
@@ -28,9 +42,15 @@
                     lat: 0,
                     lng: 0
                 },
-                zoom: 7
+                zoom: 7,
+                markers:[]
             }
+
+     
         },
+
+    
+
         created() {
             // does the user have a saved center? use it instead of the default
             if(localStorage.center) {
@@ -47,11 +67,39 @@
             if(localStorage.zoom) {
                 this.zoom = parseInt(localStorage.zoom);
             }
+
+            if (localStorage.getItem("Event") === null) {
+                console.log("No events")
+            }  else{
+                const events = JSON.parse(localStorage.getItem("Event"));
+                console.log(events.length);
+                for(let i=0;i < events.length;i++){
+                    console.log("ok");
+                    this.markers.push(
+                        {
+                            position : events[i][1],
+                        }
+                    )
+                    
+                }
+                             
+
+            }
+
+            
+                
+            
         },
+
+
+
         mounted() {
             // add the map to a data object
             this.$refs.mapRef.$mapPromise.then(map => this.map = map);
         },
+
+
+
         methods: {
             handleDrag() {
                 // get center and zoom level, store in localstorage
@@ -62,8 +110,14 @@
                 let zoom = this.map.getZoom();
                 localStorage.center = JSON.stringify(center);
                 localStorage.zoom = zoom;
-            }
+            },
+
+            
+
         },
+
+
+
         computed: {
             mapCoordinates() {
                 if(!this.map) {
@@ -77,6 +131,7 @@
                     lng: this.map.getCenter().lng().toFixed(4)
                 }
             }
-        }
+        },
+        
     }
 </script>
