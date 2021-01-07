@@ -4,10 +4,9 @@ import router from './router'
 import vueGeolocation from 'vue-browser-geolocation'
 import * as VueGoogleMaps from 'vue2-google-maps'
 
+
 Vue.config.productionTip = false
 Vue.use(vueGeolocation)
-
-
 
 
 Vue.use(VueGoogleMaps,  {
