@@ -13,8 +13,20 @@ const routes = [
   {
     path: '/join',
     name: 'Join',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Join.vue')
-  },
+    beforeEnter: (to,from,next) => {
+      if(sessionStorage.getItem("check")=='ok'){
+        next('/Join')
+      }
+      else if(sessionStorage.getItem('check')=='nok'){
+        alert('cest pas good');
+        alert('You are not yet registered please do so !');
+        next('./Account')
+      }
+      else{
+        alert("Please sign in below !")
+      }
+    }
+    },
   {
   path: '/host',
     name: 'Host',
