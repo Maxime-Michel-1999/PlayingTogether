@@ -18,6 +18,7 @@
                 if(mail == tampon[i][2]){
                     sessionStorage.setItem('check','ok');
                     test = false;
+                    alert('You are now logged in !')
                     break
                 }
             }

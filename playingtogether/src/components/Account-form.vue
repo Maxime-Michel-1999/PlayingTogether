@@ -1,7 +1,7 @@
 <template>
     <div id="registration">
         <div>
-            <form onsubmit="register()" class="container">
+            <form onsubmit="register" class="container">
                 <input type="text" id="name" placeholder="Name" required>
                 <input type="text" id="fname" placeholder="First Name" required>
                 <input type="email" id="email" placeholder="Email" required>         
@@ -30,6 +30,16 @@ export default {
                     document.querySelector('#email').value,
                     document.querySelector('#address').value]]
             if(localStorage.getItem('Customer')!==null){
+                for (var i =0;i<JSON.parse(localStorage.getItem('Customer')).length;i++){
+                    if (JSON.parse(localStorage.getItem('Customer'))[i][2]==document.querySelector('#email').value){
+                        alert('This email address is already used, please try with a new one')
+                        document.querySelector('#name').value = "";
+                        document.querySelector('#fname').value ="";
+                        document.querySelector('#email').value="";
+                        document.querySelector('#address').value="";
+                        return
+                    }
+                }
                 var tampon = JSON.parse(localStorage.getItem('Customer'));
                 tampon.push(Custom);
                 localStorage.setItem('Customer',JSON.stringify(tampon))
@@ -37,10 +47,11 @@ export default {
             else{
                 localStorage.setItem('Customer',JSON.stringify(Custom))
             }
-            document.querySelector('#name').value = "",
-            document.querySelector('#fname').value ="",
-            document.querySelector('#email').value="",
-            document.querySelector('#address').value="",
+            document.querySelector('#name').value = "";
+            document.querySelector('#fname').value ="";
+            document.querySelector('#email').value="";
+            document.querySelector('#address').value="";
+            sessionStorage.setItem('check','ok');
             alert("You are now registered !")
         }
 

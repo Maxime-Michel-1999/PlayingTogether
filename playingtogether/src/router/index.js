@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Join from '../views/Join.vue'
+import Host from '../views/Host.vue'
+import Game from '../views/Game.vue'
 
 Vue.use(VueRouter)
 
@@ -11,32 +14,59 @@ const routes = [
     component: Home
   },
   {
-    path: '/join',
+    path: '/Join',
     name: 'Join',
+    component: Join,
     beforeEnter: (to,from,next) => {
-      if(sessionStorage.getItem("check")=='ok'){
-        next('/Join')
-      }
-      else if(sessionStorage.getItem('check')=='nok'){
-        alert('cest pas good');
+      if(sessionStorage.getItem('check')=='nok'){
         alert('You are not yet registered please do so !');
-        next('./Account')
+        next('./account');
+        return
       }
-      else{
-        alert("Please sign in below !")
+      else if(sessionStorage.getItem('check')==null){
+        alert("Please sign in below !");
+        next('./');
+        return
       }
+      next(true);
     }
-    },
+    }, 
   {
   path: '/host',
     name: 'Host',
-    component: () => import(/* webpackChunkName: "about" */ '../views/Host.vue')
-  },
+    component:Host,
+    beforeEnter: (to,from,next) => {
+      if(sessionStorage.getItem('check')=='nok'){
+        alert('You are not yet registered please do so !');
+        next('./account');
+        return
+      }
+      else if(sessionStorage.getItem('check')==null){
+        alert("Please sign in below !");
+        next('./');
+        return
+      }
+      next(true);
+    }
+    },
   {
     path: '/game',
       name: 'Game',
-      component: () => import(/* webpackChunkName: "about" */ '../views/Game.vue')
-    },
+      component: Game,
+      beforeEnter: (to,from,next) => {
+        if(sessionStorage.getItem('check')=='nok'){
+          alert('You are not yet registered please do so !');
+          next('./account');
+          return
+        }
+        else if(sessionStorage.getItem('check')==null){
+          alert("Please sign in below !");
+          next('./');
+          return
+        }
+        next(true);
+      }
+  },
 
   {
     path: '/account',

@@ -1,6 +1,6 @@
 <template>
   <div class="Join">
-    <h1>This is an joining page</h1>
+    <h1>This is a joining page</h1>
     <Map/>
   </div>
 </template>
