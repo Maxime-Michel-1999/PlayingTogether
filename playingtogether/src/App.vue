@@ -33,6 +33,36 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+
+.container{
+    margin: 10px 50px;
+}
+
+input{
+    width:50%;
+    border: solid 1px #eee;
+    padding:15px 10px;
+    margin:5px;
+}
+
+button{
+    width: 200px;
+    padding:15px;
+    margin-top:5px;
+    border:solid 1px dodgerblue;
+    border-radius: 33px;
+    cursor:pointer;
+    transition: all .38s case-in-out;
+}
+
+button:hover{
+    background:dodgerblue;
+    color:#fff;
+}
+
+
+
 </style>
 
 
