@@ -1,9 +1,19 @@
 <template>
     <div>
-        Ready to Host a Game ? Enter the coordinates
+       <h1>Please Enter the Following to create an Event !</h1>
         <form onsubmit="geocode()">
+            <select id="sport" name="Sport" placeholder="Sport" required>
+                <option value="FootBall">FootBall</option>
+                <option value="BasketBall">BasketBall</option>
+                <option value="VolleyBall">VolleyBall</option>
+                <option value="Tennis">Tennis</option>
+            </select>
             <input type="text" id="adress" placeholder="Adress" required>
             <input type="text" id="name" placeholder="Event Name" required>
+            <input type="number" id="players" placeholder="Number of Players" required>
+
+
+            <p></p>
             <button @click='geocode()'>Create Event</button>
         </form>
 
@@ -24,6 +34,9 @@ export default {
             
             var loca =  document.querySelector('#adress').value;
             var name =  document.querySelector('#name').value;
+            var sport =  document.querySelector('#sport').value;
+            var nplayers =  document.querySelector('#players').value;
+
 
             axios.get('http://api.positionstack.com/v1/forward',{
                 params:{
@@ -34,8 +47,9 @@ export default {
 
                 
                 .then(function(response){
+                    console.log("ok")
                     var coord = {lat:response.data.data[0].latitude,lng:response.data.data[0].longitude}
-                    var location = [name,coord]
+                    var location = [name,coord,sport,nplayers]
                     if (localStorage.getItem("Event") === null) {
                         //Then we add a section event to it
                         const events = [];
@@ -51,6 +65,7 @@ export default {
                     
                 })
                 .catch(function(error){
+                    window.prompt("Your Adress is not supported please try again")
                     console.log(error)
                 });
 
@@ -60,3 +75,12 @@ export default {
 }
 }
 </script>
+
+<style scoped>
+#sport{
+    width:50%;
+    border: solid 1px black;
+    padding:15px 10px;
+    margin:5px;
+}
+</style>

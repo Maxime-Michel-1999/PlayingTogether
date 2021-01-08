@@ -1,11 +1,6 @@
 <template>
     <div>
-        <div style="max-width: 800px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between">
-            <div>
-                <h1>Your coordinates:</h1>
-                <p>{{ myCoordinates.lat }} Latitude, {{ myCoordinates.lng }} Longitude</p>
-            </div>
-        </div>
+        
         <GmapMap
             :center="myCoordinates"
             :zoom="zoom"
@@ -18,9 +13,17 @@
             v-for="(m,index) in markers"
             :position="m.position"
             :clickable="true"
-            :draggable="true"
-            @click="center = m.position"
+            :draggable="false"
+            :icon="m.icon"
+            @click="info(m,index)"
             />
+        <Gmap-info-window 
+            :options="infoOptions" 
+            :position="infoWindowPos" 
+            :opened="infoWinOpen" 
+            @closeclick="infoWinOpen=false"
+        />
+        
         </GmapMap>
        
         
@@ -31,7 +34,12 @@
 
 
 <script>
-    //const test = {lat:43.6990670,lng:7.25823092};
+    
+    const icons = {
+        FootBall:{
+            icon : "https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
+        }
+    }
 
     export default {
         data() {
@@ -42,8 +50,21 @@
                     lng: 0
                 },
                 zoom: 7,
-                markers:[]
+                markers:[],
+                infoWindowPos: null,
+                infoWinOpen: false,
+                currentMidx: null,
+                infoOptions: {
+                    content: "",
+                    pixelOffset: {
+                        width:0,
+                        height:-35
+
+                    }
+                }
+                
             }
+            
 
      
         },
@@ -67,18 +88,27 @@
                 this.zoom = parseInt(localStorage.zoom);
             }
 
+
+
+
+
             if (localStorage.getItem("Event") === null) {
                 console.log("No events")
             }  else{
                 const events = JSON.parse(localStorage.getItem("Event"));
-                console.log(events.length);
+
                 for(let i=0;i < events.length;i++){
-                    console.log("ok");
-                    this.markers.push(
-                        {
-                            position : events[i][1],
-                        }
-                    )
+
+                    const marker = {
+                         position : events[i][1],
+                         icon: icons.FootBall.icon,
+                         infoText:'Test'
+                    }
+                    this.markers.push(marker);
+                    marker.addListener("click", () => {
+                        console.log("ok")
+                    })
+                    
                     
                 }
                              
@@ -100,6 +130,24 @@
 
 
         methods: {
+            info: function(marker,idx){
+                this.infoWindowPos = marker.position;
+                this.infoOptions.content = marker.infoText;
+
+                //check if its the same marker that was selected if yes toggle
+                if (this.currentMidx == idx) {
+                    this.infoWinOpen = !this.infoWinOpen;
+                    }
+                //if different marker set infowindow to open and reset current marker index
+                else {
+                    this.infoWinOpen = true;
+                    this.currentMidx = idx;
+
+            }
+            
+          
+                        
+            },
             handleDrag() {
                 // get center and zoom level, store in localstorage
                 let center = {
