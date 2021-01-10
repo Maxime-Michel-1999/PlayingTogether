@@ -13,6 +13,10 @@ import UGame from '../components/UserGame.vue';
 export default {
   components:{
     UGame,
+  },
+
+  created(){
+    sessionStorage.setItem('page',this.$route.name)
   }
 }
 </script>

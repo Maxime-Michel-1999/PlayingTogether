@@ -28,6 +28,12 @@ export default {
     Map,
     Info
   },
+  
+  created(){
+    sessionStorage.setItem('page',this.$route.name)
+    
+    },
+    
   methods :{
     checkInfo: function(data){
       //we want the info component to appear

@@ -25,10 +25,11 @@ export default {
             document.querySelector('#address').value=""
         },
         register(){ 
-            var Custom=[[document.querySelector('#name').value,
+            var Custom=[document.querySelector('#name').value,
                     document.querySelector('#fname').value,
                     document.querySelector('#email').value,
-                    document.querySelector('#address').value]]
+                    document.querySelector('#address').value,
+                    []]
             if(localStorage.getItem('Customer')!==null){
                 for (var i =0;i<JSON.parse(localStorage.getItem('Customer')).length;i++){
                     if (JSON.parse(localStorage.getItem('Customer'))[i][2]==document.querySelector('#email').value){
@@ -45,13 +46,14 @@ export default {
                 localStorage.setItem('Customer',JSON.stringify(tampon))
             }
             else{
-                localStorage.setItem('Customer',JSON.stringify(Custom))
+                localStorage.setItem('Customer',JSON.stringify([Custom]))
             }
+            sessionStorage.setItem('user',document.querySelector('#email').value);
             document.querySelector('#name').value = "";
             document.querySelector('#fname').value ="";
             document.querySelector('#email').value="";
             document.querySelector('#address').value="";
-            sessionStorage.setItem('check','ok');
+            this.$router.push({ name: 'Join' });
             alert("You are now registered !")
         }
 
