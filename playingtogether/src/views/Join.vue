@@ -14,6 +14,10 @@ export default {
   name: 'Home',
   components: {
     Map,
+  },
+
+  created(){
+    sessionStorage.setItem('page',this.$route.name)
   }
 }
 
