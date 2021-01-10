@@ -41,10 +41,6 @@ export default {
 
 
       document.querySelector("#info").style.display ="block"
-
-
-
-      alert(data)
     }
 
   }
