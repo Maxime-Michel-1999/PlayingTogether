@@ -1,6 +1,11 @@
 <template>
-    <div>
-    <p>Game {{marker.sport}} </p>
+    <div id="Information">
+    <p>{{marker.name}}</p>
+
+    <p>{{marker.sport}} <br>
+        {{marker.adress}} <br>
+        
+    </p>
 
     
     <button v-on:click="join()">Join the Game</button>
@@ -19,16 +24,19 @@ export default {
 
         join(){
             var userEmail = sessionStorage.getItem("user");
-            var customers = JSON.parse(localStorage.getItem("Customers"));
+            var customers = JSON.parse(localStorage.getItem("Customer"));
+
+            
             for(let i = 0; i < customers.length; i++ ){
 
                 if(customers[i][2] == userEmail){
-                    customers[i][4].append(this.marker.name);
+                    customers[i][4].push(this.marker.name);
                     break;
                 }
 
             }
-            localStorage.setItem("Customers",JSON.stringify(customers));
+            localStorage.setItem("Customer",JSON.stringify(customers));
+            this.$router.push({name:"Game"});
 
         }
 
@@ -36,3 +44,9 @@ export default {
     
 }
 </script>
+
+<style >
+    #Information{
+        background-color: rgb(0, 247, 255);
+    }
+</style>
