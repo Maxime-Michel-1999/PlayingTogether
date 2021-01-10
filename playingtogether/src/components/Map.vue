@@ -42,6 +42,7 @@
     }
 
     export default {
+      
         data() {
             return {
                 map: null,
@@ -96,18 +97,19 @@
                 console.log("No events")
             }  else{
                 const events = JSON.parse(localStorage.getItem("Event"));
-
+                
                 for(let i=0;i < events.length;i++){
-
+                    
                     const marker = {
                          position : events[i][1],
                          icon: icons.FootBall.icon,
-                         infoText:'Test'
+                         infoText: events[i][2],
+                         placeholder: events[i][0],
+                         id : i,
+                         sport : events[i][2]
                     }
                     this.markers.push(marker);
-                    marker.addListener("click", () => {
-                        console.log("ok")
-                    })
+                    
                     
                     
                 }
@@ -144,6 +146,9 @@
                     this.currentMidx = idx;
 
             }
+
+            this.$emit('showInfo',marker);
+            
             
           
                         
@@ -157,6 +162,7 @@
                 let zoom = this.map.getZoom();
                 localStorage.center = JSON.stringify(center);
                 localStorage.zoom = zoom;
+               
             },
 
         },
