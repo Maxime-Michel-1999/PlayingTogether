@@ -24,6 +24,7 @@ const routes = [
         return
       }
       else if(sessionStorage.getItem('check')==null){
+        document.querySelector('#signinButton').style.background = 'red';
         alert("Please sign in below !");
         next('./');
         return
@@ -42,6 +43,7 @@ const routes = [
         return
       }
       else if(sessionStorage.getItem('check')==null){
+        document.querySelector('#signinButton').style.background = 'red';
         alert("Please sign in below !");
         next('./');
         return
@@ -60,6 +62,7 @@ const routes = [
           return
         }
         else if(sessionStorage.getItem('check')==null){
+          document.querySelector('#signinButton').style.background = 'red';
           alert("Please sign in below !");
           next('./');
           return
