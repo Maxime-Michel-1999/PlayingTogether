@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Join from '../views/Join.vue'
 import Host from '../views/Host.vue'
 import Game from '../views/Game.vue'
+import Account from '../views/Account.vue'
 
 Vue.use(VueRouter)
 
@@ -18,16 +19,14 @@ const routes = [
     name: 'Join',
     component: Join,
     beforeEnter: (to,from,next) => {
-      if(sessionStorage.getItem('check')=='nok'){
-        alert('You are not yet registered please do so !');
-        next('./account');
-        return
-      }
-      else if(sessionStorage.getItem('check')==null){
-        document.querySelector('#signinButton').style.background = 'red';
-        alert("Please sign in below !");
-        next('./');
-        return
+      if(sessionStorage.getItem('user')==null){
+        if(sessionStorage.getItem('page')=='Home'){
+          document.querySelector('#signinButton').style.background = 'red';
+          alert("Please sign in below or create an account in the ACCOUNT section !");
+        }
+        else if (sessionStorage.getItem('page')=='Account')
+          alert("Please sign in or create an account below");
+          return
       }
       next(true);
     }
@@ -37,16 +36,14 @@ const routes = [
     name: 'Host',
     component:Host,
     beforeEnter: (to,from,next) => {
-      if(sessionStorage.getItem('check')=='nok'){
-        alert('You are not yet registered please do so !');
-        next('./account');
-        return
-      }
-      else if(sessionStorage.getItem('check')==null){
-        document.querySelector('#signinButton').style.background = 'red';
-        alert("Please sign in below !");
-        next('./');
-        return
+      if(sessionStorage.getItem('user')==null){
+        if(sessionStorage.getItem('page')=='Home'){
+          document.querySelector('#signinButton').style.background = 'red';
+          alert("Please sign in below or create an account in the ACCOUNT section !");
+        }
+        else if (sessionStorage.getItem('page')=='Account')
+          alert("Please sign in or create an account below");
+          return
       }
       next(true);
     }
@@ -56,16 +53,14 @@ const routes = [
       name: 'Game',
       component: Game,
       beforeEnter: (to,from,next) => {
-        if(sessionStorage.getItem('check')=='nok'){
-          alert('You are not yet registered please do so !');
-          next('./account');
-          return
-        }
-        else if(sessionStorage.getItem('check')==null){
-          document.querySelector('#signinButton').style.background = 'red';
-          alert("Please sign in below !");
-          next('./');
-          return
+        if(sessionStorage.getItem('user')==null){
+          if(sessionStorage.getItem('page')=='Home'){
+            document.querySelector('#signinButton').style.background = 'red';
+            alert("Please sign in below or create an account in the ACCOUNT section !");
+          }
+          else if (sessionStorage.getItem('page')=='Account')
+            alert("Please sign in or create an account below");
+            return
         }
         next(true);
       }
@@ -74,7 +69,7 @@ const routes = [
   {
     path: '/account',
       name: 'Account',
-      component: () => import(/* webpackChunkName: "about" */ '../views/Account.vue')
+      component: Account,
   }
 
 ]

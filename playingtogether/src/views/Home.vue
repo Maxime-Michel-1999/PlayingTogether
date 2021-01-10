@@ -17,7 +17,12 @@ export default {
   components: {
     Sign,
     SignOut
+  },
+
+  created(){
+    sessionStorage.setItem('page',this.$route.name)
   }
+  
 }
 
 </script>
