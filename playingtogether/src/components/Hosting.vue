@@ -11,6 +11,8 @@
             <input type="text" id="adress" placeholder="Adress" required>
             <input type="text" id="name" placeholder="Event Name" required>
             <input type="number" id="players" placeholder="Number of Players" required>
+            <input type="datetime-local" id="date" placeholder="date" required>
+            <input type="text" id="description" placeholder="Description of your event">
 
 
             <p></p>
@@ -36,6 +38,11 @@ export default {
             var name =  document.querySelector('#name').value;
             var sport =  document.querySelector('#sport').value;
             var nplayers =  document.querySelector('#players').value;
+            var splayers = 1; //joined players
+            var date = document.querySelector('#date').value;
+            var description = document.querySelector('#description').value;
+
+
           
            
 
@@ -55,7 +62,7 @@ export default {
                     if(response.data.data[0].latitude == undefined)
                     {alert("We have difficulites catching your adress please try again")
                                 return}
-                    var location = [name,coord,sport,nplayers,loca]
+                    var location = [name,coord,sport,nplayers,loca,splayers,description,date]
                     if (localStorage.getItem("Event") === null) {
                         //Then we add a section event to it
                         
@@ -75,7 +82,7 @@ export default {
                     window.prompt("Your Adress is not supported please try again")
                     console.log(error)
                 });
-
+        this.$router.push({name:"Game"});
          },
 
         

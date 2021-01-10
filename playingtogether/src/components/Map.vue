@@ -104,9 +104,10 @@
                          position : events[i][1],
                          icon: icons.FootBall.icon,
                          infoText: events[i][2],
-                         placeholder: events[i][0],
+                         name : events[i][0],
                          id : i,
-                         sport : events[i][2]
+                         sport : events[i][2],
+                         adress: events[i][4]
                     }
                     this.markers.push(marker);
                     
