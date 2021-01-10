@@ -13,27 +13,28 @@
     export default{
         methods: {
             signin(){
-            var mail = document.querySelector('#email-signin').value;
-            var tampon = JSON.parse(localStorage.getItem('Customer'));
-            var test = true;
-            if(tampon !== null){
-                for(var i=0;i<tampon.length;i++){
-                    if(mail == tampon[i][2]){
-                        sessionStorage.setItem('user',mail);
-                        test = false;
-                        alert('You are now logged in !')
-                        document.querySelector('#email-signin').value = "";
-                        break
+                var mail = document.querySelector('#email-signin').value;
+                var tampon = JSON.parse(localStorage.getItem('Customer'));
+                var test = true;
+                if(tampon !== null){
+                    for(var i=0;i<tampon.length;i++){
+                        if(mail == tampon[i][2]){
+                            sessionStorage.setItem('user',mail);
+                            test = false;
+                            document.querySelector('#email-signin').value = "";
+                            this.$router.push({name : 'Join'});
+                            alert('You are now logged in !') 
+                            break
+                        }
                     }
                 }
-            }
-            if(test){
-                if(sessionStorage.getItem('user')!==null){
-                    sessionStorage.removeItem('user');
+                if(test){
+                    if(sessionStorage.getItem('user')!==null){
+                        sessionStorage.removeItem('user');
+                    }
+                    this.$router.push({ name: 'Account' });
+                    alert('You are not yet registered, please do so in the ACCOUNT section !')
                 }
-                this.$router.push({ name: 'Account' });
-                alert('You are not yet registered, please do so in the ACCOUNT section !')
-            }
             }
         }
     }
