@@ -20,7 +20,13 @@ export default {
     Sign,
     SignOut,
     Video
+  },
+
+  created(){
+    sessionStorage.setItem('page',this.$route.name)
+
   }
+  
 }
 
 </script>
