@@ -1,83 +1,68 @@
 <template>
-    <div id="games">
-        <p>Hello</p>
+    <div id="usergame">
+        <div v-for="(event,idx) in events" v-bind:key="idx">
+            <div class="usergame">
+                <p>Name : {{ event.name}}</p>
+                <p>Sport : {{ event.sport}}</p>
+                <p>Date : {{ event.date}}</p>
+                <p>Address : {{ event.place}}</p>
+                <p>Number of player : {{ event.nbPlayer}}</p>
+                <p>Number of maximum player : {{ event.nbPlayerMax}}</p>
+                <p>Description : {{ event.description}}</p>
+            </div>
+        </div>
     </div>
 </template>
 
+
 <script>
 export default {
-    
+    data(){
+        return{
+            events:[],
+        }
+    },
+
     created(){
-        var customerEvents = null;
+        
+        var customerData = null;
         var tampon = JSON.parse(localStorage.getItem('Customer'));
         for (let i=0; i<tampon.length;i++){
             if(tampon[i][2]==sessionStorage.getItem('user')){
-                customerEvents = tampon[i][4];
+                customerData = tampon[i];
                 break
             }
         }
-        var customerEventsInfo=[];
-        var allEvents = JSON.parse(localStorage.getItem('Event'));
-        for (let i = 0 ; i<customerEvents.length; i++){
-            var evName = customerEvents[i];
-            alert(evName);
-            for(let j=0;j<allEvents.length;j++){
-                if(allEvents[j][0]==evName){
-                    customerEventsInfo.push(allEvents[j]);
-                    break
+        var customerEvents = customerData[4]
+        if(customerEvents!==""){
+            var customerEventsInfo=[];
+            var allEvents = JSON.parse(localStorage.getItem('Event'));
+            for (let i = 0 ; i<customerEvents.length; i++){
+                var evName = customerEvents[i];
+                for(let j=0;j<allEvents.length;j++){
+                    if(allEvents[j][0]==evName){
+                        customerEventsInfo.push(allEvents[j]);
+                        break
+                    }
                 }
             }
+            for(let i=0;i<customerEventsInfo.length;i++){
+                var myEvent = customerEventsInfo[i];
+                const event = {
+                    name : myEvent[0],
+                    sport: myEvent[2],
+                    date : myEvent[7],
+                    place : myEvent[4],
+                    nbPlayer: myEvent[5],
+                    nbPlayerMax:myEvent[3],
+                    description:myEvent[6]
+                }
+                this.events.push(event);
+            }    
         }
-        for(let i = 0 ; i<customerEventsInfo.length ; i++){
-            const div = document.createElement('div');
-            
-            for (var j=0;j<customerEventsInfo[i].length;j++){
-                if(j==0){ 
-                    let tag = document.createElement('p');
-                    let text = document.createTextNode('Name : ' + customerEventsInfo[i][j]);
-                    tag.appendChild(text);
-                    iDiv.appendChild(tag);
-                }
-                else if(j==2){
-                    let tag = document.createElement('p');
-                    let text = document.createTextNode('Sport : ' + customerEventsInfo[i][j]);
-                    tag.appendChild(text);
-                    iDiv.appendChild(tag);
-                }
-                else if(j==5){
-                    let tag = document.createElement('p');
-                    let text = document.createTextNode('Number of player : ' + customerEventsInfo[i][j]);
-                    tag.appendChild(text);
-                    iDiv.appendChild(tag);
-                }
-                else if(j==3){
-                    let tag = document.createElement('p');
-                    let text = document.createTextNode('Number of player max : ' + customerEventsInfo[i][j]);
-                    tag.appendChild(text);
-                    iDiv.appendChild(tag);
-                }
-                else if(j==6){
-                    let tag = document.createElement('p');
-                    let text = document.createTextNode('Description : ' + customerEventsInfo[i][j]);
-                    tag.appendChild(text);
-                    iDiv.appendChild(tag);
-                }
-                else if(j==7){
-                    let tag = document.createElement('p');
-                    let text = document.createTextNode('Date : ' + customerEventsInfo[i][j]);
-                    tag.appendChild(text);
-                    iDiv.appendChild(tag);
-                }
-                else if(j==4){
-                    let tag = document.createElement('p');
-                    let text = document.createTextNode('Address : ' + customerEventsInfo[i][j]);
-                    tag.appendChild(text);
-                    iDiv.appendChild(tag);
-                }
-            
-            }
+        else{
+            alert('You are not currently registered to any games !')
         }
     }
 }
-
 </script>
