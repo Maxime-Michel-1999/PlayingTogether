@@ -2,11 +2,12 @@
     <div id="usergame">
         <article v-for="(event,idx) in events" v-bind:key="idx" >
             <article class="usergame">
-                <div class="container">
-                    <div>
+                <div class="container2">
+                    <div style="margin-left:80px;margin-right:80px">
                         <p><span><b>Name :</b></span> {{ event.name}}</p>
                         <p><span><b>Sport : </b></span>{{ event.sport}}</p>
                         <p><span><b>Date : </b></span>{{ event.date}}</p>
+                        <p><span><b>Hour : </b></span>{{ event.hour}}</p>
                         <p><span><b>Address : </b></span>{{ event.place}}</p>
                         <p><span><b>Number of player : </b></span>{{ event.nbPlayer}}</p>
                         <p><span><b>Number of maximum player :</b></span> {{ event.nbPlayerMax}}</p>
@@ -61,6 +62,7 @@ export default {
                     name : myEvent[0],
                     sport: myEvent[2],
                     date : myEvent[7],
+                    hour : myEvent[8],
                     place : myEvent[4],
                     nbPlayer: myEvent[5],
                     nbPlayerMax:myEvent[3],
@@ -108,6 +110,7 @@ export default {
 <style>
 
 .usergame{
+    display:inline-block;
     text-align : left;
     position: relative;
     border: 2px solid black;
@@ -124,8 +127,8 @@ export default {
 }
 
 .button-unsubscribe{
-    margin-left:150px;
-    
+    margin-left:80px;
+    margin-right: 80px;
 }
 
 
