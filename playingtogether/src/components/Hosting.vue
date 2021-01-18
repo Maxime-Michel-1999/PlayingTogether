@@ -33,6 +33,9 @@ export default {
     methods:{
         
         geocode(){
+
+
+
             
             var loca =  document.querySelector('#adress').value;
             var name =  document.querySelector('#name').value;
@@ -96,25 +99,36 @@ export default {
                         const events = JSON.parse(localStorage.getItem("Event"));
                         events.push(location);
                         localStorage.setItem("Event",JSON.stringify(events));
-            }
+                    }
+
+                    var tampon = JSON.parse(localStorage.getItem('Customer'));
+                    for(let i =0 ; i<tampon.length ; i++){
+                        if(tampon[i][2] == sessionStorage.getItem('user')){
+                            tampon[i][4].push(this.marker.name)
+                        }
+                    }
+                    localStorage.setItem('Customer',JSON.stringify(tampon));
 
                     
                 })
+
                 .catch(function(error){
                     window.prompt("Your Adress is not supported please try again")
                     console.log(error)
+                })
+        this.$router.push({name:"Join"});
+
                 });
 
 
 
 
 
-        this.$router.push({name:"Join"});
-
+      
          },
 
         
-}
+    }
 }
 </script>
 
