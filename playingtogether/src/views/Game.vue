@@ -1,6 +1,6 @@
 <template>
   <div class="Host">
-    <h1>This is a Game page</h1>
+    <h1>Sum up of all your games !</h1>
     <UGame/>
   </div>
 </template>
