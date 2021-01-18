@@ -104,46 +104,6 @@ export default {
         }
     },
 
-    methods:{
-        unsubscribe(name){
-            var user = sessionStorage.getItem('user');
-            var allUsers = JSON.parse(localStorage.getItem('Customer'));
-            var pos = 0;
-            for (let i=0;i<allUsers.length;i++){
-                if(allUsers[i][2]==user){
-                    pos = i;
-                    var eventsUser = allUsers[i][4]
-                }
-            }
-            if(eventsUser!==null){
-                var check = true;
-                for(let i=0;i<eventsUser.length;i++){
-                    if(name==eventsUser[i]){
-                        check = false;
-                        var posBis =i;
-                        break
-                    }
-                }
-                if(check){
-                    alert('You are the creator of this event you cannot unsubscribe!')
-                }
-                else{
-                    var newEvents=[]
-                    for(let i=0;i<allUsers[pos][4].length;i++){
-                        if(i!==posBis){
-                            newEvents.push(allUsers[pos][4][i])
-                        }
-                    }
-                    allUsers[pos][4] = newEvents;
-                    localStorage.setItem('Customer',JSON.stringify(allUsers));
-                }
-            }
-            else{
-                alert('You are the creator of this event you cannot unsubscribe!')
-            }
-        }
-    }
-
 }
 </script>
 

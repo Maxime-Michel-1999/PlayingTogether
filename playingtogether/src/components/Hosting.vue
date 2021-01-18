@@ -11,7 +11,8 @@
             <input type="text" id="adress" placeholder="Adress" required>
             <input type="text" id="name" placeholder="Event Name" required>
             <input type="number" id="players" placeholder="Number of Players" required>
-            <input type="datetime-local" id="date" placeholder="date" required>
+            <input type="date" id="date" min="9/10/2018" placeholder="date" required>
+            <input type="time" id="time" placeholder="Scheduled time" required>
             <input type="text" id="description" placeholder="Description of your event">
 
 
@@ -30,6 +31,24 @@ const axios = require('axios');
 export default {
     
 
+    created(){
+        var dtToday = new Date();
+    
+        var month = dtToday.getMonth() + 1;
+        var day = dtToday.getDate();
+        var year = dtToday.getFullYear();
+        if(month < 10)
+                    month = '0' + month.toString();
+        if(day < 10)
+                    day = '0' + day.toString();
+    
+        var maxDate = year + '-' + month + '-' + day;
+        alert(maxDate);
+
+        alert(document.querySelector('#date').getAttribute("min"));
+
+    },
+
     methods:{
         
         geocode(){
@@ -42,11 +61,15 @@ export default {
             //Check if the name of the event already exist
 
             var events = JSON.parse(localStorage.getItem("Event"));
-            for(let i =0; i < events.length;i++){
-                if(events[i][0]==name){
-                    alert("This event name already exists please create another one");
-                    return;
-                }
+
+            if(localStorage.getItem("Event") !== null){
+
+            
+                for(let i =0; i < events.length;i++){
+                    if(events[i][0]==name){
+                        alert("This event name already exists please create another one");
+                        return;
+                }}
 
             }
 
@@ -57,13 +80,16 @@ export default {
             var nplayers =  document.querySelector('#players').value;
             var splayers = 1; //joined players
             var date = document.querySelector('#date').value;
-            var now = new Date(),
-                    // minimum date the user can choose, in this case now and in the future
-                    minDate = now.toISOString().substring(0,10);
+            //Forbidding past dates
 
-            ('#date').prop('min', minDate);
+           
+                
+         
 
 
+            
+
+            var hour = document.querySelector('#time').value;
             var description = document.querySelector('#description').value;
             var email = sessionStorage.getItem("user");
 
@@ -87,7 +113,7 @@ export default {
                     if(response.data.data[0].latitude == undefined)
                     {alert("We have difficulites catching your adress please try again")
                                 return}
-                    var location = [name,coord,sport,nplayers,loca,splayers,description,date,email]
+                    var location = [name,coord,sport,nplayers,loca,splayers,description,date,email,hour]
                     if (localStorage.getItem("Event") === null) {
                         //Then we add a section event to it
                         
@@ -101,24 +127,20 @@ export default {
                         localStorage.setItem("Event",JSON.stringify(events));
                     }
 
-                    var tampon = JSON.parse(localStorage.getItem('Customer'));
-                    for(let i =0 ; i<tampon.length ; i++){
-                        if(tampon[i][2] == sessionStorage.getItem('user')){
-                            tampon[i][4].push(this.marker.name)
-                        }
-                    }
-                    localStorage.setItem('Customer',JSON.stringify(tampon));
+            
 
                     
                 })
 
                 .catch(function(error){
-                    window.prompt("Your Adress is not supported please try again")
+                    alert("Your Adress is not supported please try again")
                     console.log(error)
                 })
-        this.$router.push({name:"Join"});
+
 
               
+        this.$router.push({name:"Home"});
+
 
 
 
