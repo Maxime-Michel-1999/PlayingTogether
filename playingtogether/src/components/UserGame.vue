@@ -117,7 +117,7 @@ export default {
     height: auto;
 }
 
-.container{
+.container2{
     display: flex;
     align-items: center;
     justify-content: center

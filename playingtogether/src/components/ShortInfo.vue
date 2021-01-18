@@ -1,6 +1,6 @@
 <template>
     <div id="Information">
-    <p>{{marker.name}}</p>
+    <h1>{{marker.name}}</h1>
 
     <p>{{marker.sport}} <br>
         {{marker.adress}} <br>
@@ -8,7 +8,7 @@
     </p>
 
     
-    <button v-on:click="join()">Join the Game</button>
+    <button v-on:click="join()" id="join">Join the Game</button>
     </div>
 
 
@@ -24,7 +24,15 @@ export default {
 
         join(){
 
+
+
             var userEmail = sessionStorage.getItem("user");
+
+            if(this.marker.email==userEmail){
+                alert('You are already registered for this event!');
+                return
+            }
+
             var customers = JSON.parse(localStorage.getItem("Customer"));
 
             for(let i=0;i<customers.length;i++){
@@ -74,6 +82,18 @@ export default {
 
 <style >
     #Information{
-        background-color: rgb(0, 247, 255);
+    text-align : center;
+    border: 2px solid black;
+    
+    background-color: rgb(200, 243, 200);
+    width: auto;
+    height: auto;
+    display :inline-block;
+    align-items: center;
+    justify-content: center
+}
+
+    #join{
+        margin: 25px;
     }
 </style>

@@ -1,6 +1,6 @@
 <template>
   <div class="Join">
-    <h1>This is a joining page</h1>
+    <h1>Please Join a Game !</h1>
     <Map v-on:showInfo="checkInfo($event)"></Map>
     
 
