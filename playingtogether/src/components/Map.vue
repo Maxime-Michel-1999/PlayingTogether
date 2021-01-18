@@ -103,7 +103,7 @@
                     var nplayers = parseInt(events[i][3]);
                     
                     var splayers = events[i][5];
-                    
+                    var empty = nplayers-splayers;
                     if(splayers == nplayers){
                         alert(events[i][0])
                         break;
@@ -117,7 +117,8 @@
                          id : i,
                          sport : events[i][2],
                          adress: events[i][4],
-                         email:events[i][8]
+                         email: events[i][8],
+                         free: empty
                     }
                     this.markers.push(marker);
                     
