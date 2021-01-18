@@ -1,16 +1,23 @@
 <template>
     <div id="usergame">
-        <div v-for="(event,idx) in events" v-bind:key="idx">
-            <div class="usergame">
-                <p>Name : {{ event.name}}</p>
-                <p>Sport : {{ event.sport}}</p>
-                <p>Date : {{ event.date}}</p>
-                <p>Address : {{ event.place}}</p>
-                <p>Number of player : {{ event.nbPlayer}}</p>
-                <p>Number of maximum player : {{ event.nbPlayerMax}}</p>
-                <p>Description : {{ event.description}}</p>
-            </div>
-        </div>
+        <article v-for="(event,idx) in events" v-bind:key="idx" >
+            <article class="usergame">
+                <div class="container">
+                    <div>
+                        <p><span><b>Name :</b></span> {{ event.name}}</p>
+                        <p><span><b>Sport : </b></span>{{ event.sport}}</p>
+                        <p><span><b>Date : </b></span>{{ event.date}}</p>
+                        <p><span><b>Address : </b></span>{{ event.place}}</p>
+                        <p><span><b>Number of player : </b></span>{{ event.nbPlayer}}</p>
+                        <p><span><b>Number of maximum player :</b></span> {{ event.nbPlayerMax}}</p>
+                        <p><span><b>Description : </b></span>{{ event.description}}</p>
+                    </div>
+                    <div  class="button-unsubscribe">
+                        <button id="unregister" v-on:click="unsubscribe(event.name)">Unsubscribe</button>
+                    </div>
+                </div>
+            </article>
+        </article>
     </div>
 </template>
 
@@ -63,6 +70,33 @@ export default {
         else{
             alert('You are not currently registered to any games !')
         }
-    }
+    },
+
 }
 </script>
+
+<style>
+
+.usergame{
+    text-align : left;
+    position: relative;
+    border: 2px solid black;
+    margin-bottom: 5px;
+    background-color: rgb(200, 243, 200);
+    width: auto;
+    height: auto;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.button-unsubscribe{
+    margin-left:150px;
+    
+}
+
+
+</style>
