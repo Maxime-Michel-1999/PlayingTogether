@@ -2,11 +2,12 @@
     <div id="usergame">
         <article v-for="(event,idx) in events" v-bind:key="idx" >
             <article class="usergame">
-                <div class="container">
-                    <div>
+                <div class="container2">
+                    <div style="margin-left:80px;margin-right:80px">
                         <p><span><b>Name :</b></span> {{ event.name}}</p>
                         <p><span><b>Sport : </b></span>{{ event.sport}}</p>
                         <p><span><b>Date : </b></span>{{ event.date}}</p>
+                        <p><span><b>Hour : </b></span>{{ event.hour}}</p>
                         <p><span><b>Address : </b></span>{{ event.place}}</p>
                         <p><span><b>Number of player : </b></span>{{ event.nbPlayer}}</p>
                         <p><span><b>Number of maximum player :</b></span> {{ event.nbPlayerMax}}</p>
@@ -61,6 +62,7 @@ export default {
                     name : myEvent[0],
                     sport: myEvent[2],
                     date : myEvent[7],
+                    hour : myEvent[8],
                     place : myEvent[4],
                     nbPlayer: myEvent[5],
                     nbPlayerMax:myEvent[3],
@@ -102,12 +104,53 @@ export default {
         }
     },
 
+    methods:{
+        unsubscribe(name){
+            var user = sessionStorage.getItem('user');
+            var allUsers = JSON.parse(localStorage.getItem('Customer'));
+            var pos = 0;
+            for (let i=0;i<allUsers.length;i++){
+                if(allUsers[i][2]==user){
+                    pos = i;
+                    var eventsUser = allUsers[i][4]
+                }
+            }
+            if(eventsUser!==null){
+                var check = true;
+                for(let i=0;i<eventsUser.length;i++){
+                    if(name==eventsUser[i]){
+                        check = false;
+                        var posBis =i;
+                        break
+                    }
+                }
+                if(check){
+                    alert('You are the creator of this event you cannot unsubscribe!')
+                }
+                else{
+                    var newEvents=[]
+                    for(let i=0;i<allUsers[pos][4].length;i++){
+                        if(i!==posBis){
+                            newEvents.push(allUsers[pos][4][i])
+                        }
+                    }
+                    allUsers[pos][4] = newEvents;
+                    localStorage.setItem('Customer',JSON.stringify(allUsers));
+                }
+            }
+            else{
+                alert('You are the creator of this event you cannot unsubscribe!')
+            }
+        }
+    }
+
 }
 </script>
 
 <style>
 
 .usergame{
+    display:inline-block;
     text-align : left;
     position: relative;
     border: 2px solid black;
@@ -117,15 +160,15 @@ export default {
     height: auto;
 }
 
-.container{
+.container2{
     display: flex;
     align-items: center;
     justify-content: center
 }
 
 .button-unsubscribe{
-    margin-left:150px;
-    
+    margin-left:80px;
+    margin-right: 80px;
 }
 
 
