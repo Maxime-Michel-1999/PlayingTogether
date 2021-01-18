@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div id="map">
         
         <GmapMap
             :center="myCoordinates"
@@ -99,6 +99,15 @@
                 const events = JSON.parse(localStorage.getItem("Event"));
                 
                 for(let i=0;i < events.length;i++){
+
+                    var nplayers = parseInt(events[i][3]);
+                    
+                    var splayers = events[i][5];
+                    
+                    if(splayers == nplayers){
+                        alert(events[i][0])
+                        break;
+                    }
                     
                     const marker = {
                          position : events[i][1],
@@ -107,7 +116,8 @@
                          name : events[i][0],
                          id : i,
                          sport : events[i][2],
-                         adress: events[i][4]
+                         adress: events[i][4],
+                         email:events[i][8]
                     }
                     this.markers.push(marker);
                     
@@ -187,3 +197,7 @@
         
     }
 </script>
+
+<style scoped>
+    
+</style>
