@@ -1,7 +1,7 @@
 <template>
     <div>
        <h1>Please Enter the Following to create an Event !</h1>
-        <form onsubmit="geocode()">
+        <form onsubmit="this.geocode()">
             <select id="sport" name="Sport" placeholder="Sport" required>
                 <option value="FootBall">FootBall</option>
                 <option value="BasketBall">BasketBall</option>
@@ -29,7 +29,13 @@
 const axios = require('axios');
 
 export default {
-    
+    data(){
+        return{
+            maxDat:"",
+            hours:"",
+        }
+        
+    },
 
     created(){
         var dtToday = new Date();
@@ -42,10 +48,12 @@ export default {
         if(day < 10)
                     day = '0' + day.toString();
     
-        var maxDate = year + '-' + month + '-' + day;
-        alert(maxDate);
-
-        alert(document.querySelector('#date').getAttribute("min"));
+        this.maxDate = year + '-' + month + '-' + day;
+        
+        var hour = dtToday.getHours();
+        var minutes = dtToday.getMinutes();
+        this.hours = hour + ":" +minutes;
+        
 
     },
 
@@ -81,15 +89,20 @@ export default {
             var splayers = 1; //joined players
             var date = document.querySelector('#date').value;
             //Forbidding past dates
-
+        
+            if(date<this.maxDate){
+                alert("You can only create a game in the futur, please enter a correct date");
+                return;
+            }
            
-                
-         
-
-
-            
-
             var hour = document.querySelector('#time').value;
+
+            if(date == this.maxDate && hour<this.hours){
+                alert("You can only create a game in the futur, please enter a correct hour");
+                return;
+            }
+
+
             var description = document.querySelector('#description').value;
             var email = sessionStorage.getItem("user");
 
@@ -135,6 +148,7 @@ export default {
                 .catch(function(error){
                     alert("Your Adress is not supported please try again")
                     console.log(error)
+                    return;
                 })
 
 
