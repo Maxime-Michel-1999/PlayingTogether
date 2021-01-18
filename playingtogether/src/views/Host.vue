@@ -18,6 +18,12 @@ export default {
   created(){
     sessionStorage.setItem('page',this.$route.name)
   }
+
+ 
+                
+                
+                
+  
 }
 
 </script>

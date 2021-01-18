@@ -33,6 +33,8 @@ export default {
                 break
             }
         }
+
+
         var customerEvents = customerData[4]
         if(customerEvents!==""){
             var customerEventsInfo=[];
@@ -58,7 +60,35 @@ export default {
                     description:myEvent[6]
                 }
                 this.events.push(event);
-            }    
+            }  
+            
+
+            //Check if the user is hosting any game
+            var customerEmail = sessionStorage.getItem("user");
+            var Event = JSON.parse(localStorage.getItem("Event"));
+            for(let j=0;j<Event.length;j++){
+                if(Event[j][8]==customerEmail){
+                    var IEvent = Event[j];
+                    const event = {
+                        name : IEvent[0],
+                        sport: IEvent[2],
+                        date : IEvent[7],
+                        place : IEvent[4],
+                        nbPlayer: IEvent[5],
+                        nbPlayerMax:IEvent[3],
+                        description:IEvent[6]
+                }
+                this.events.push(event);
+
+
+                }
+            }
+
+
+           
+
+
+
         }
         else{
             alert('You are not currently registered to any games !')
