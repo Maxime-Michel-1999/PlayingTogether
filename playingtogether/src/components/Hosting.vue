@@ -36,11 +36,33 @@ export default {
             
             var loca =  document.querySelector('#adress').value;
             var name =  document.querySelector('#name').value;
+            //Check if the name of the event already exist
+
+            var events = JSON.parse(localStorage.getItem("Event"));
+            for(let i =0; i < events.length;i++){
+                if(events[i][0]==name){
+                    alert("This event name already exists please create another one");
+                    return;
+                }
+
+            }
+
+
+
+
             var sport =  document.querySelector('#sport').value;
             var nplayers =  document.querySelector('#players').value;
             var splayers = 1; //joined players
             var date = document.querySelector('#date').value;
+            var now = new Date(),
+                    // minimum date the user can choose, in this case now and in the future
+                    minDate = now.toISOString().substring(0,10);
+
+            ('#date').prop('min', minDate);
+
+
             var description = document.querySelector('#description').value;
+            var email = sessionStorage.getItem("user");
 
 
           
@@ -62,7 +84,7 @@ export default {
                     if(response.data.data[0].latitude == undefined)
                     {alert("We have difficulites catching your adress please try again")
                                 return}
-                    var location = [name,coord,sport,nplayers,loca,splayers,description,date]
+                    var location = [name,coord,sport,nplayers,loca,splayers,description,date,email]
                     if (localStorage.getItem("Event") === null) {
                         //Then we add a section event to it
                         
@@ -82,7 +104,13 @@ export default {
                     window.prompt("Your Adress is not supported please try again")
                     console.log(error)
                 });
-        this.$router.push({name:"Game"});
+
+
+
+
+
+        this.$router.push({name:"Join"});
+
          },
 
         
