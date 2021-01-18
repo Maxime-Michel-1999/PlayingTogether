@@ -2,10 +2,12 @@
     <div id="Information">
     <h1>{{marker.name}}</h1>
 
-    <p>{{marker.sport}} <br>
-        {{marker.adress}} <br>
+
+    <div id="info">
+        <li><span><b>Sport : </b></span> {{marker.sport}} </li>
+        <li><span><b>Free Places:</b></span> {{marker.free}} </li>
         
-    </p>
+    </div>
 
     
     <button v-on:click="join()" id="join">Join the Game</button>
@@ -95,5 +97,10 @@ export default {
 
     #join{
         margin: 25px;
+    }
+
+    #info{
+        
+       
     }
 </style>
