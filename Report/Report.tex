@@ -1,0 +1,34 @@
+\documentclass[]{article}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{indentfirst}
+\usepackage{setspace}
+\usepackage{hyperref}
+
+\begin{document}
+
+\begin{center}
+	\begin{huge}
+	Playing Together Report
+	\end{huge}
+\end{center}
+\vskip 0.5cm
+
+Play Together aims at gathering people wherever they want over a common sport passion. In order to do so, Play Together is composed of many different features and tools to help the user to easily join or host a game.\\
+Our web application is composed of five different pages \textit{Home}, \textit{Join}, \textit{Host}, \textit{Game} and \textit{Account}.\\ 
+
+\textit{Home} is the homepage, it is the first page the user sees when he arrives on the web application. 
+In this page we added an advertising video from Nike and an advertising of an ethical sportswear sailer. However, the most important feature on this page is the fact that you cannot access the pages \textit{Join}, \textit{Host} and \textit{Game}, if you are not signed in. The only way to sign in is to have created an account before and to sign in with the corresponding email address (sign in information kept in the \textit{sessionStorage}). The \textit{Sign in} button redirects the user to \textit{Join} (full access to the web application), if the user is registered, or to \textit{Account} if not. There is as well a \textit{log out} button to exit your session.\\
+
+The second page is \textit{Join}, and in it is the core of our web application. Indeed in this page the user has access to a map on which he sees markers of the different events taking part in the world. The google map API is used for the map and the markers. On this page the fact that  when the user clicks on a marker a component appears giving him a short description of the event, and a \textit{Join event} button if he wants to participate, is a very important feature. When the user joined the event he is redirected to the \textit{Game} page, where he has access to a summary of all his upcomming events.\\
+
+The \textit{Host} page is another very important page for the good development of the web application. On this page the user can decide to create a new event whenever and wherever he decides to, prohibiting creation of events in the past. The most important feature of this page is not directly seen on the web application, but behind it. Indeed, in the coding part of this page the geocoding sytem is ensured by the PositionStack API, in order to transform the address of the event into GPS coordinates.\\
+
+The \textit{Game} page is less important to the web application's good execution, but it is more of a service for the user. Indeed, on this page the only interesting feature is the fact that before the loading of the page the code checks the user email address in the \textit{sessionStorage} and display the corresponding games, to which he is registered.\\
+ 
+Finally, on the \textit{Account} page the user can see a form which allows him to create an account and automatically sign in. His information are then kept on the \textit{localStorage}. 
+
+
+
+
+\end{document}
